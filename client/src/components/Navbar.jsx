@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { CustomButton } from './';
+import { useStateContext } from '../context';
 import { logo, menu, search, thirdweb } from '../assets';
 import { navlinks } from '../constants';
 
@@ -11,8 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState('dashboard');
   const [toggleDrawer, setToggleDrawer] = useState(false);
-
-  const address = '0xabc'
+  const { connect, address } = useStateContext();
 
   return (
     <div className="
@@ -69,7 +69,7 @@ const Navbar = () => {
              styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'} 
              handleClick={() => {
               if(address) navigate('create-campaign')
-              else 'connect()'
+              else connect();
              }}/>
 
              <Link to="/profile">
@@ -87,7 +87,7 @@ const Navbar = () => {
       <div className='sm: hidden flex justify-between items-center relative'>
           <div className='w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer'>
               <img 
-                src={thirdweb} 
+                src={logo} 
                 alt="user" 
                 className="w-[60px] h-[60%] object-contain" 
               />
@@ -128,7 +128,7 @@ const Navbar = () => {
              styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'} 
              handleClick={() => {
               if(address) navigate('create-campaign')
-              else 'connect()'
+              else connect();
           }}/>
         </div>
       </div>
